@@ -9,7 +9,8 @@ import {
   deleteDoc,
   updateDoc,
   query,
-  orderBy
+  orderBy,
+  where
 } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js'
 
 
@@ -56,6 +57,41 @@ export async function tambahBarangKeKeranjang(
   namapelanggan
 ) {
   try {
+    // periksa apakah idbarng sudah ada dicollectoin transaksi?
+
+    // mengambil data di seluruh coolection transaksi
+    let refDokumen = collection(basisdata, "transaksi")
+
+    // membuat query unruk mencari data bedasarkan idbarang
+    let queryBarang = query(refDokumen, where("idbarang", "==", idbarang))
+
+    let snapshotBarang = await getDocs(queryBarang)
+    let jumlahRecord = 0
+    let idtransaksi = ''
+    let jumlahSebelumnya = 0
+
+    snapshotBarang.forEach((dokumen) => {
+      jumlahRecord++
+      idtransaksi = dokumen.id
+      jumlahSebelumnya = dokumen.data().jumlah 
+    })
+
+    if (jumlahRecord == 0) {
+      // kalau belum ada, tambahkan langsung ke collection
+      const refDokumen = await addDoc(collection(basisdata, "transaksi"), {
+        idbarang: idbarang,
+        nama: nama,
+        harga: harga,
+        jumlah: jumlah,
+        idpelanggan: idpelanggan,
+        namapelanggan: namapelanggan
+      })
+    } else if (jumlahRecord == 1) {
+     // kalo sudah ada, tambahkan jumlahnya saja
+     jumlahSebelumnya++
+     await updateDoc(doc(basisdata, "transaksi", idtransaksi), { jumlah: jumlahSebelumnya })
+    }
+      
     // Menyimpan data ke collection transaksi 
     const refDokumen = await addDoc(collection(basisdata, "transaksi"), {
       idbarang: idbarang,
