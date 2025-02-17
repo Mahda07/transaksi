@@ -16,14 +16,13 @@
   <h1 class="text-center">Toko Incer</h1>
 
   <h3>Pilih Barang</h3>
-
   <table class="table table-striped-columns table-bordered border-success" id="daftar-barang">
     <thead class="table-success">
       <tr>
         <th scope="col">#</th>
         <th scope="col">Item</th>
         <th scope="col">Harga</th>
-        <th scope="col">Masukkan keranjang</th>
+        <th scope="col">Masukkan Keranjang</th>
       </tr>
     </thead>
     <tbody>
@@ -31,14 +30,14 @@
   </table>
 
   <h3>Keranjang Belanja</h3>
-  <table class="table table-striped-columns table-bordered border-success" id="daftar-keranjang">
-    <thead class="table-success">
+  <table class="table table-striped-columns table-bordered border-primary" id="daftar-keranjang">
+    <thead class="table-primary">
       <tr>
         <th scope="col">#</th>
         <th scope="col">Item</th>
         <th scope="col">Harga</th>
         <th scope="col">Jumlah</th>
-        <th scope="col">Hapus Dari keranjang</th>
+        <th scope="col">Hapus Dari Keranjang</th>
       </tr>
     </thead>
     <tbody>
@@ -48,34 +47,34 @@
   <script type="module">
     import { ambilDaftarBarang, tambahBarangKeKeranjang, ambilDaftarBarangDiKeranjang } from './main.js';
 
-    //menampilkan daftar barang
     $(document).ready(async function() {
-      async function tampilBarangDiKeranjang()
+      async function tampilBarangDiKeranjang() {
+        // menampilkan daftar barang yang ada di keranjang
+        let elemenDaftarBarangDiKeranjang = $("#daftar-keranjang > tbody")
+        let daftarBarangDiKeranjang = await ambilDaftarBarangDiKeranjang()
+        let nomorKeranjang = 1
+        let totalKeranjang = 0
 
-      //menampilkan data barang yang ada di keranjang 
-      let elemenDaftarBarangDiKeranjang = $("#daftar-keranjang > tbody")
-      let daftarBarangDiKeranjang = await ambilDaftarBarangDiKeranjang()
-      let nomorKeranjang = 1
-      let totalKeranjang = 0
-      
-      // mengosongkan 
-      elemenDaftarBarangDiKeranjang.empty()
-      
-      daftarBarangDiKeranjang.forEach((data) => {
-        elemenDaftarBarangDiKeranjang.append(
-          "<tr>" +
-          "<td>" + nomorKeranjang + "</td>" +
-          "<td>" + data.nama + "</td>" +
-          "<td>" + data.harga + "</td>" +
-          "<td>" + data.jumlah + "</td>" +
-          "<td>" + "link hapus" + "</td>" +
-          "</tr>"
-        )
+        // mengosongkan daftar barang sebelumnya
+        elemenDaftarBarangDiKeranjang.empty()
 
-        nomorKeranjang++
-      })
-      // selesai menampilkan batang dikeranjang
+        daftarBarangDiKeranjang.forEach((data) => {
+          elemenDaftarBarangDiKeranjang.append(
+            "<tr>" +
+            "<td>" + nomorKeranjang + "</td>" +
+            "<td>" + data.nama + "</td>" +
+            "<td>" + data.harga + "</td>" +
+            "<td>" + data.jumlah + "</td>" +
+            "<td>" + "link hapus" + "</td>" +
+            "</tr>"
+          )
 
+          nomorKeranjang++
+        })
+        // selesai menampilkan barang di keranjang
+      }
+
+      // menampilkan daftar barang di inventory
       let elemenDaftarBarang = $("#daftar-barang > tbody");
       let daftarBarang = await ambilDaftarBarang();
 
@@ -94,43 +93,22 @@
 
         nomor = nomor + 1
       })
+      // selesai menampilkan barang di inventory
 
+      await tampilBarangDiKeranjang()
 
+      // menambah barang ke keranjang
       $(".link-keranjang").click(async function() {
         let idbarang = $(this).attr('data')
         let nama = $(this).attr('data-nama')
         let harga = $(this).attr('data-harga')
         let jumlah = 1
-        let idpelanggan = 'prosee'
+        let idpelanggan = 'proses'
         let namapelanggan = 'proses'
 
         await tambahBarangKeKeranjang(idbarang, nama, harga, jumlah, idpelanggan, namapelanggan)
 
-        console.log('menambah barang ke keranjang')
-
-        //menampilkan data barang yang ada di keranjang 
-        let elemenDaftarBarangDiKeranjang = $("#daftar-keranjang > tbody")
-        let daftarBarangDiKeranjang = await ambilDaftarBarangDiKeranjang()
-        let nomorKeranjang = 1
-        let totalKeranjang = 0
-        
-        // mengosongkan 
-        elemenDaftarBarangDiKeranjang.empty()
-        
-        daftarBarangDiKeranjang.forEach((data) => {
-          elemenDaftarBarangDiKeranjang.append(
-            "<tr>" +
-            "<td>" + nomorKeranjang + "</td>" +
-            "<td>" + data.nama + "</td>" +
-            "<td>" + data.harga + "</td>" +
-            "<td>" + data.jumlah + "</td>" +
-            "<td>" + "link hapus" + "</td>" +
-            "</tr>"
-          )
-
-          nomorKeranjang++
-        })
-        // selesai menampilkan batang dikeranjang
+        console.log("menambah barang ke keranjang")
 
         await tampilBarangDiKeranjang()
       })
