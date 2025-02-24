@@ -99,18 +99,26 @@
           "<td>" + data.nama + "</td>" +
           "<td>" + data.alamat + "</td>" +
           "<td>" + data.nohape + "</td>" +
-          "<td>" + "<button class='btn btn-success tombol-pilih' data='" + data.id + "'>pilih</button> " + "</td>" +
+          "<td>" + "<button class='btn btn-success tombol-pilih' data='" + data.id + "' data-nama='" + data.nama + "'>pilih</button> " + "</td>" +
           "</tr>"
         )
         nomor = nomor + 1
       })
-       $(".tombol-pilih").click(async function() {
-          await hapusDaftarPelanggan($(this).attr('data'))
-          location.reload()
-        }
-    )
-     
       
+      
+       // memilih pelanggan
+     $(".tombol-pilih").click(async function(){
+      // mengambil data pelanggan 
+      let idpelanggan = $(this).attr('data')
+      let namapelanggan = $(this).attr('data-nama')
+      
+      // cara data ke collection transaksi yang id dan nama pelanggan = proses
+      
+      
+      // update data di collectoin transaksi tersebut
+      // pergi kehalaman cetak nota
+     })
+      // selesai memilih pelanggan
     })
   </script>
   
