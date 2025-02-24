@@ -38,8 +38,8 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">nama</th>
-        <th scope="col">no hape</th>
         <th scope="col">alamat</th>
+        <th scope="col">no hape</th>
         <th scope="col">aksi</th>
       </tr>
     </thead>
@@ -49,8 +49,7 @@
   
   
   <script type="module">
-    import { ambilDaftarBarang, tambahBarangKeKeranjang, ambilDaftarBarangDiKeranjang, hapusBarangDariKeranjang } from './main.js';
-    
+   import { ambilDaftarPelanggan, hapusDaftarPelanggan, ambilDaftarBarangDiKeranjang } from './main.js'; 
     $(document).ready(async function() {
       async function tampilBarangDiKeranjang() {
         // menampilkan daftar barang yang ada di keranjang
@@ -87,6 +86,31 @@
         // refresh halaman 
         location.reload()
       })
+      
+      let elemenDaftarPelanggan = $("#daftar-pelanggan > tbody");
+      let daftarPelanggan = await ambilDaftarPelanggan();
+      
+      let nomor = 1
+      let total = 0
+      daftarPelanggan.forEach((data) => {
+        elemenDaftarPelanggan.append(
+          "<tr>" +
+          "<td>" + nomor + "</td>" +
+          "<td>" + data.nama + "</td>" +
+          "<td>" + data.alamat + "</td>" +
+          "<td>" + data.nohape + "</td>" +
+          "<td>" + "<button class='btn btn-success tombol-pilih' data='" + data.id + "'>pilih</button> " + "</td>" +
+          "</tr>"
+        )
+        nomor = nomor + 1
+      })
+       $(".tombol-pilih").click(async function() {
+          await hapusDaftarPelanggan($(this).attr('data'))
+          location.reload()
+        }
+    )
+     
+      
     })
   </script>
   
