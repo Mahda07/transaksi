@@ -29,7 +29,7 @@
     </tbody>
   </table>
   
-  <h3 id="keranjang">keranjang belanja</h3>
+  <h3 id="keranjang">Keranjang Belanja</h3>
   <table class="table table-striped-columns table-bordered border-primary" id="daftar-keranjang">
     <thead class="table-primary">
       <tr>
@@ -44,7 +44,7 @@
     </tbody>
   </table>
   
-  <a href="pelanggan.html" class="btn btn-primary">pilih pelanggan</a>
+  <a href="pelanggan.html" class="btn btn-primary">Pilih Pelanggan</a>
   
   <script type="module">
     import { ambilDaftarBarang, tambahBarangKeKeranjang, ambilDaftarBarangDiKeranjang, hapusBarangDariKeranjang } from './main.js';
@@ -119,8 +119,7 @@
       $("#daftar-keranjang > tbody").on('click', '.link-hapus', async function() {
         await hapusBarangDariKeranjang($(this).attr('data'))
         
-        
-        // refresh halaman 
+        // refresh halaman
         location.reload()
       })
     })
