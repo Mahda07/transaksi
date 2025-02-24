@@ -46,7 +46,7 @@
   
   <a href="pelanggan.html" class="btn btn-primary">pilih pelanggan</a>
   
-  <script type="module>
+  <script type="module">
     import { ambilDaftarBarang, tambahBarangKeKeranjang, ambilDaftarBarangDiKeranjang, hapusBarangDariKeranjang } from './main.js';
     
     $(document).ready(async function() {
@@ -100,7 +100,7 @@
       await tampilBarangDiKeranjang()
       
       // menambah barang ke keranjang
-      $(".link-hapus").click(async function() {
+      $(".link-keranjang").click(async function() {
         let idbarang = $(this).attr('data')
         let nama = $(this).attr('data-nama')
         let harga = $(this).attr('data-harga')
@@ -116,7 +116,7 @@
       })
       
       // menghapus item dari keranjang
-      $("#daftar-keranjang > tbody").on('click', 'link-hapus', async function() {
+      $("#daftar-keranjang > tbody").on('click', '.link-hapus', async function() {
         await hapusBarangDariKeranjang($(this).attr('data'))
         
         

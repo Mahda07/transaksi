@@ -58,6 +58,12 @@ export async function tambahBarangKeKeranjang(
 ) {
   try {
     // periksa apakah idbarng sudah ada dicollectoin transaksi?
+    console.log(idbarang)
+    console.log(nama)
+    console.log(harga)
+    console.log(jumlah)
+    console.log(idpelanggan)
+    console.log(namapelanggan)
 
     // mengambil data di seluruh coolection transaksi
     let refDokumen = collection(basisdata, "transaksi")
