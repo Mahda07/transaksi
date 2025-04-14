@@ -49,7 +49,7 @@
   
   
   <script type="module">
-  import { ambilDaftarBarangDiKeranjang, hapusBarangDariKeranjang, ambilDaftarPelanggan } from './main.js';
+  import { ambilDaftarBarangDiKeranjang, hapusBarangDariKeranjang, ambilDaftarPelanggan, ambilBarangProsesDiKeranjang, ubahBarangProsesDiKeranjang } from './main.js';
   
   $(document).ready(async function() {
     async function tampilBarangDiKeranjang() {
@@ -111,11 +111,21 @@
       let idpelanggan = $(this).attr('data')
       let namapelanggan = $(this).attr('data-nama')
       
-      // cari data collection transaksi yang id dan nama pelanggan = proses
+      console.log(idpelanggan + "," + namapelanggan)
       
+      // cari data collection transaksi yang id dan nama pelanggan = proses
+      let  daftarbarangproses = await ambilBarangProsesDiKeranjang()
+      
+      daftarbarangproses.forEach((data)=> {
+        console.log(data.nama)
+      })
       
       // update data di collection transaksi tersebut
+      await ubahBarangProsesDiKeranjang(idpelanggan, namapelanggan)
+      
       // pergi ke halaman cetak nota
+       let url = 'nota.html?id=' + idpelanggan
+       location.replace(url) 
     })
     // selesai memilih pelanggan
   })
