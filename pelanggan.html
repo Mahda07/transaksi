@@ -116,12 +116,11 @@
       // cari data collection transaksi yang id dan nama pelanggan = proses
       let  daftarbarangproses = await ambilBarangProsesDiKeranjang()
       
-      daftarbarangproses.forEach((data)=> {
+      daftarbarangproses.forEach(async (data)=> {
         console.log(data.nama)
+        
+        await ubahBarangProsesDiKeranjang(data.id, idpelanggan, namapelanggan)
       })
-      
-      // update data di collection transaksi tersebut
-      await ubahBarangProsesDiKeranjang(idpelanggan, namapelanggan)
       
       // pergi ke halaman cetak nota
        let url = 'nota.html?id=' + idpelanggan
