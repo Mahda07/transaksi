@@ -170,7 +170,7 @@ export async function ambilDaftarBarang() {
 let queryBarangProses = query(refDokumen, where("idpelanggan", "==", "proses"))
 
 let snapshotBarang = await getDocs(queryBarangProses)
- snapshotBarang.forEach((dokumen)=>{
+ snapshotBarang.forEach(async (dokumen)=>{
    await updateDoc(
      doc(basisdata, "transaksi", dokumen.id),
      { idpelanggan: idpelanggan, namapelanggan: namapelanggan  }
