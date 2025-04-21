@@ -17,9 +17,28 @@
   
   <h3>NOTA PEMBELIAN atas nama <span id="namapelanggan"></span></h3>
   
+  <!-- tampilkan tabel daftar barang di collection transaksi -->
+  <table class="table table-striped-columns table-bordered border-primary" id="daftar-keranjang">
+    <thead class="table-primary">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Item</th>
+        <th scope="col">Harga</th>
+        <th scope="col">Jumlah</th>
+        <th scope="col">total</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  
+  <h4> grand total : <span id="total"></span></h4>
+  
+  <button class="btn btn-success" id="cetak">cetak nota</button>
+  
   <script type="module">
     // impor fungsi yang diperlukan
-    import { ambilpelanggan } from './main.js'
+    import { ambilpelanggan, daftarBarangNotaPelanggan } from './main.js'
     
     $(document).ready(async function() {
       const queryString = window.location.search
@@ -29,6 +48,33 @@
       // tampilkan nama pelanggan
       const pelanggan = await ambilpelanggan(id)
       $("#namapelanggan").html(pelanggan.nama)
+      
+      // menampilkan daftar barang yang ada di keranjang
+      let elemenDaftarBarangDiKeranjang = $("#daftar-keranjang > tbody")
+      let daftarBarangDiKeranjang = await daftarBarangNotaPelanggan(id)
+      let nomorKeranjang = 1
+      let totalKeranjang = 0
+      
+      // mengosongkan daftar barang sebelumnya
+      elemenDaftarBarangDiKeranjang.empty()
+      
+      daftarBarangDiKeranjang.forEach((data) => {
+        elemenDaftarBarangDiKeranjang.append(
+          "<tr>" +
+          "<td>" + nomorKeranjang + "</td>" +
+          "<td>" + data.nama + "</td>" +
+          "<td>" + data.harga + "</td>" +
+          "<td>" + data.jumlah + "</td>" +
+          "<td>" + (data.harga * data.jumlah)  + "</td>" +
+          "</tr>"
+        )
+        
+        nomorKeranjang++
+        totalKeranjang = totalKeranjang + (data.harga * data.jumlah)
+      })
+      // selesai menampilkan barang di keranjang
+      
+      $('#total').html(totalKeranjang)
       
     })
   </script>
