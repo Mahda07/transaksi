@@ -10,12 +10,14 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body class="m-3">
   <h1 class="text-center">Toko incer</h1>
   
-  <h3>NOTA PEMBELIAN atas nama <span id="namapelanggan"></span></h3>
+  <h3>Nota pembelian atas nama <span id="namapelanggan"></span></h3>
   
   <!-- tampilkan tabel daftar barang di collection transaksi -->
   <table class="table table-striped-columns table-bordered border-primary" id="daftar-keranjang">
@@ -76,6 +78,13 @@
       
       $('#total').html(totalKeranjang)
       
+      $('#cetak').click(function(){
+        // tentukan elemen html yang akan dibuat jadi pdf
+        let elemenNota = document.getElementById('daftar-keranjang')
+        
+        // panggil fungsi html2pdf dengan parameter elemen html sebelumnya
+        html2pdf(elemenNota)
+      })
     })
   </script>
 </body>
