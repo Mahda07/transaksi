@@ -17,7 +17,7 @@
 <body class="m-3">
   <h1 class="text-center">Toko incer</h1>
   
-  <div id="kotaknota">
+  <div id="kotakNota">
   <h3>Nota pembelian atas nama <span id="namapelanggan"></span></h3>
   
   <!-- tampilkan tabel daftar barang di collection transaksi -->
@@ -82,7 +82,7 @@
       
       $('#cetak').click(function(){
         // tentukan elemen html yang akan dibuat jadi pdf
-        let elemenNota = document.getElementById('kotaknota')
+        let elemenNota = document.getElementById('kotakNota')
         
         // panggil fungsi html2pdf dengan parameter elemen html sebelumnya
         html2pdf(elemenNota)
